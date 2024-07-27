@@ -2,14 +2,15 @@ library(shiny)
 library(htmltools)
 library(bslib)
 library(shades)
-# library(thematic)
 
+# crear colores a partir de un color base
 color_base = "#1FBE9A"
 color_principal = color_base |> saturation(delta(-0.05)) |> as.character()
 color_fondo = color_base |> brightness(delta(-0.65)) |> saturation(delta(-0.4)) |> as.character()
 color_detalle = color_base |> brightness(delta(-0.3)) |> saturation(delta(-0.3)) |> as.character()
 color_texto = color_base |> chroma(55) |> lightness(95) |> as.character()
 
+# # previsualizar colores
 # swatch(c(color_fondo,
 #        color_texto,
 #        color_detalle,
@@ -22,14 +23,13 @@ ui <- fluidPage(
         fg = color_texto,
         primary = color_principal,
         font_scale = 1.3,
-        base_font = font_google("Pacifico")
-    ),
+        base_font = font_google("Pacifico")),
     
+    # tamaño del texto de los sliders
     tags$style(".irs-min, .irs-max, .irs-single { font-size: 60% !important ;}"),
     
     div(style = css(max_width = "300px", 
-                    margin = "auto", 
-                    margin_top = "60px"),
+                    margin = "auto", margin_top = "60px"),
         fluidRow(
             column(12,
                    
@@ -41,24 +41,21 @@ ui <- fluidPage(
                                label = "Precio por clase",
                                min = 3000, max = 30000, 
                                value = 18000, step = 1000,
-                               ticks = F, sep = ".", pre = "$"
-                   ) |> 
+                               ticks = F, sep = ".", pre = "$") |> 
                        div(style = css(margin_bottom = "30px")),
                    
                    sliderInput("duracion",
                                label = "Duración de clases",
                                min = 1, max = 3, 
                                value = 1.5, step = 0.1,
-                               ticks = F, sep = ",", post = " hrs."
-                   ) |> 
+                               ticks = F, sep = ",", post = " hrs.") |> 
                        div(style = css(margin_bottom = "30px")),
                    
                    sliderInput("alumnos",
                                label = "Alumnxs",
                                min = 1, max = 20,
                                value = 5, 
-                               ticks = F
-                   ) |> 
+                               ticks = F) |> 
                        div(style = css(margin_bottom = "30px")),
                    
                    sliderInput("clases_semanales",
@@ -67,8 +64,6 @@ ui <- fluidPage(
                                value = 1, step = 0.1, 
                                ticks = F) |> 
                        div(style = css(margin_bottom = "30px")),
-                   
-                   
             )
         ),
         
@@ -86,10 +81,11 @@ ui <- fluidPage(
                    
                    div(style = css(font_size = "130%"),
                        div(style = css(margin_bottom = "-10px"),
-                           strong("Ingreso mensual:")
-                       ),
+                           strong("Ingreso mensual:")),
+                       
                        p("$", textOutput("texto", inline = T))
                    ),
+                   
                    div(style = css(font_size = "90%", 
                                    font_style = "italic",
                                    margin_top = "-16px",
@@ -116,9 +112,7 @@ server <- function(input, output, session) {
     })
     
     horas_semanales <- reactive({
-        
         (input$clases_semanales * input$alumnos) * input$duracion
-        
     })
     
     output$texto <- renderText({
