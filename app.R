@@ -6,7 +6,7 @@ library(shades)
 
 color_base = "#1FBE9A"
 color_principal = color_base |> saturation(delta(-0.05)) |> as.character()
-color_fondo = color_base |> brightness(delta(-0.67)) |> saturation(delta(-0.4)) |> as.character()
+color_fondo = color_base |> brightness(delta(-0.65)) |> saturation(delta(-0.4)) |> as.character()
 color_detalle = color_base |> brightness(delta(-0.3)) |> saturation(delta(-0.3)) |> as.character()
 color_texto = color_base |> chroma(55) |> lightness(95) |> as.character()
 
