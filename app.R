@@ -17,6 +17,7 @@ color_texto = color_base |> chroma(55) |> lightness(95) |> as.character()
 #        color_principal), bg = "#181818")
 
 ui <- fluidPage(
+    title = "Estimador de ingresos por clases particulares", lang = "es",
     
     theme = bs_theme(
         bg = color_fondo,
@@ -73,7 +74,6 @@ ui <- fluidPage(
                                background_color = color_fondo, 
                                border = paste("3.5px", color_detalle, "solid"), 
                                margin_top = "24px",
-                               margin_bottom = "64px",
                                padding_bottom = "0px",
                                text_align = "center",
                                color = color_texto,
@@ -93,6 +93,23 @@ ui <- fluidPage(
                        p(textOutput("horas", inline = T), "horas semanales,",
                          textOutput("clases_por_dia", inline = T), "x día")
                    )
+            )
+        ),
+        
+        # firma
+        fluidRow(
+            column(12,
+                   style = css(margin_top = "50px",
+                               margin_bottom = "64px",
+                               border_radius = "12px",
+                               background_color = color_fondo |> brightness(delta(-0.025)),
+                               padding = "16px",
+                               padding_bottom = "0px",
+                               font_size = "60%", 
+                               font_family = "Tahoma",
+                               opacity = "50%"),
+                   markdown("App desarrollada en R por [Bastián Olea Herrera.](https://bastianolea.github.io/shiny_apps/) 
+                            [Código de fuente en GitHub.](https://github.com/bastianolea/estimador_ingresos_clases)")
             )
         )
     )
